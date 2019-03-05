@@ -6,11 +6,14 @@ from sklearn.metrics import classification_report, confusion_matrix
 
 # reading and setting up the data and splitting into training and test sets
 # for comments on this see the implementation of KNN
-stock_DF = pd.read_csv("C:\\Users\\Tim\\Documents\\CrypTech\\" + "google.csv")
-stock_DF = stock_DF.iloc[35:]
+stock_DF = pd.read_csv("C:\\Users\\Tim\\Documents\\CrypTech\\" + "stocks_combined.csv")
+#stock_DF = stock_DF.iloc[35:]
+stock_DF = stock_DF.dropna()
 
 print("Data loaded")
 df_feat = pd.DataFrame(stock_DF, columns=stock_DF.columns[1:-2])
+
+print(df_feat.head())
 X = df_feat
 y = stock_DF['Winning']
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=101)
@@ -35,3 +38,9 @@ print("Random Forest:")
 print(confusion_matrix(y_test, rfc_pred))
 print('\n')
 print(classification_report(y_test, rfc_pred))
+
+feature_importances = pd.DataFrame(rfc.feature_importances_,
+                                   index = X_train.columns,
+                                    columns=['importance']).sort_values('importance', ascending=False)
+
+print(feature_importances)
