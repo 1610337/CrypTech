@@ -44,3 +44,17 @@ feature_importances = pd.DataFrame(rfc.feature_importances_,
                                     columns=['importance']).sort_values('importance', ascending=False)
 
 print(feature_importances)
+
+
+stock_DF = pd.read_csv("C:\\Users\\Tim\\Documents\\CrypTech\\" + "to_predict.csv")
+df_feat = pd.DataFrame(stock_DF, columns=stock_DF.columns[1:-3])
+df_feat = df_feat.dropna()
+
+rfc_pred = rfc.predict(df_feat.values)
+
+df_feat["pred"] = rfc_pred
+df_feat.to_csv("predictions.csv", index=False)
+
+names = pd.DataFrame(stock_DF)["names"]
+print(names)
+print(rfc_pred)

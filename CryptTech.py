@@ -7,11 +7,15 @@ import glob
 
 stock_path_list = glob.glob("C:\\Users\\Tim\\Documents\\CrypTech\\res\\*.csv")
 
+'''
+Download all csv files
+'''
 
 # params
 winnig_border = 0.02
 
 main_df = None
+pred_df = None
 
 
 for idx, path in enumerate(stock_path_list):
@@ -54,20 +58,28 @@ for idx, path in enumerate(stock_path_list):
     stock_DF["Winning"] = np.where(stock_DF["Winning_Percent_10Days"] > winnig_border, "TRUE", "FALSE")
 
     #print(stock_DF.head())
-    stock_DF.to_csv(path[len(path)-5:len(path)], index=False)
+    #stock_DF.to_csv(path[len(path)-5:len(path)], index=False)
 
     if idx == 0:
         print("0")
         main_df = stock_DF
+        pred_df = stock_DF.iloc[[-1]]
+        print(stock_DF.iloc[[-1]].to_string())
     else:
         main_df = main_df.append(stock_DF, ignore_index=True)
+        pred_df = pred_df.append(stock_DF.iloc[[-1]], ignore_index=True)
 
     print(len(main_df))
+
 
 #atr = talib.ATR(df["High"],df["Low"], df["Close"], timeperiod=2)
 #atr = talib.ATR(high[0],low[0], close[0], timeperiod=5)
 
 #print(atr)
+
+pred_df["names"] = stock_path_list
+print(pred_df.head())
+pred_df.to_csv("to_predict.csv", index=False)
 
 print(main_df.head())
 main_df.to_csv("stocks_combined.csv", index=False)
