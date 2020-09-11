@@ -56,5 +56,4 @@ df_feat["pred"] = rfc_pred
 df_feat.to_csv("predictions.csv", index=False)
 
 names = pd.DataFrame(stock_DF)["names"]
-print(names)
 print(rfc_pred)

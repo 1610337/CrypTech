@@ -14,7 +14,7 @@ Download all csv files
 
 # params
 winnig_border = 0.02
-winning_days = 10
+winning_days = 15
 
 main_df = None
 pred_df = None
@@ -53,7 +53,7 @@ for idx, path in enumerate(stock_path_list):
     #stock_DF["slowk"], stock_DF["slowd"] = talib.STOCH(stock_DF["High"], stock_DF["Low"], stock_DF["Close"], fastk_period=5, slowk_period=3, slowk_matype=0, slowd_period=3, slowd_matype=0)
 
     # Standard Deviation -- negative effect
-    # stock_DF["Standard_Deviation"] = talib.STDDEV(stock_DF["Close"], timeperiod=5, nbdev=1)
+    #stock_DF["Standard_Deviation"] = talib.STDDEV(stock_DF["Close"], timeperiod=5, nbdev=1)
     '''
     Winning Criteria
     '''
